@@ -1,0 +1,29 @@
+name: Merge (with bors)
+
+on:
+  push:
+    branches:
+      - staging
+      - trying
+    tags-ignore:
+      - "*"
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        toolchain:
+          - nightly
+          - stable
+          - 1.63.0
+
+    name: Test with Rust ${{ matrix.toolchain }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure toolchain
+        run: |
+          rustup toolchain install --profile minimal --no-self-update ${{ matrix.toolchain }}
+          rustup default ${{ matrix.toolchain }}
+      - run: cargo test
