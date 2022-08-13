@@ -154,8 +154,8 @@ impl<'de> Deserialize<'de> for Date {
 	}
 }
 
-#[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(from = "(i64, u32, u8)")]
+#[derive(Debug, Clone, Copy, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(from = "(i64, u32, u8)", into = "(i64, u32, u8)")]
 pub struct DateParts {
 	pub year: i64,
 	pub month: u32,
@@ -165,6 +165,13 @@ pub struct DateParts {
 impl From<(i64, u32, u8)> for DateParts {
 	fn from((year, month, day): (i64, u32, u8)) -> Self {
 		Self { year, month, day }
+	}
+}
+
+impl From<DateParts> for (i64, u32, u8) {
+	fn from(val: DateParts) -> Self {
+		let DateParts { year, month, day } = val;
+		(year, month, day)
 	}
 }
 
