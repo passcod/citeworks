@@ -1,6 +1,6 @@
 //! Types and utilities for ordinary values.
 
-use std::hash::Hash;
+use std::{fmt::Display, hash::Hash};
 
 use decorum::{cmp::FloatEq, hash::FloatHash};
 use serde::{Deserialize, Serialize};
@@ -68,6 +68,16 @@ impl Hash for OrdinaryValue {
 			OrdinaryValue::Float(f) => f.float_hash(state),
 			OrdinaryValue::Integer(i) => i.hash(state),
 			OrdinaryValue::String(s) => s.hash(state),
+		}
+	}
+}
+
+impl Display for OrdinaryValue {
+	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+		match self {
+			Self::Float(n) => write!(f, "{}", n),
+			Self::Integer(i) => write!(f, "{}", i),
+			Self::String(s) => write!(f, "{}", s),
 		}
 	}
 }
