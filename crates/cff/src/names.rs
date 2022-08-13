@@ -21,6 +21,41 @@ pub enum Name {
 	Anonymous,
 }
 
+impl Name {
+	/// Returns true if the [Name] is a person.
+	pub fn is_person(&self) -> bool {
+		matches!(self, Self::Person(_))
+	}
+
+	/// Returns true if the [Name] is an entity.
+	pub fn is_entity(&self) -> bool {
+		matches!(self, Self::Entity(_))
+	}
+
+	/// Returns true if the [Name] is anonymous.
+	pub fn is_anonymous(&self) -> bool {
+		matches!(self, Self::Anonymous)
+	}
+
+	/// If the [Name] is a person, return it.
+	pub fn as_person(&self) -> Option<&PersonName> {
+		if let Self::Person(p) = self {
+			Some(p)
+		} else {
+			None
+		}
+	}
+
+	/// If the [Name] is an entity, return it.
+	pub fn as_entity(&self) -> Option<&EntityName> {
+		if let Self::Entity(e) = self {
+			Some(e)
+		} else {
+			None
+		}
+	}
+}
+
 impl Serialize for Name {
 	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
 	where

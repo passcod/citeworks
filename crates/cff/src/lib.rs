@@ -4,7 +4,36 @@
 //!
 //! The top level API mimics [serde_yaml]'s:
 //!
-//! TODO example
+//! ```
+//! let cff = citeworks_cff::from_str(r#"
+//! cff-version: 1.2.0
+//! message:
+//!   If you dare use this commercial, closed-source, strangely versioned
+//!   software in your research, please at least cite it as below.
+//! authors:
+//!   - family-names: Vader
+//!     name-suffix: né Skywalker
+//!     given-names: 'Anakin "Darth"'
+//!   - name: anonymous
+//! title: Opaquity
+//! version: opq-1234-XZVF-ACME-RLY
+//! date-released: 2017-02-28
+//! url: http://www.opaquity.com/
+//! contact:
+//!   - name: Dark Side Software
+//!     address: DS-1 Orbital Battle Station, near Scarif
+//!     email: father@imperial-empire.com
+//!     tel: +850 (0)123-45-666
+//! "#).unwrap();
+//!
+//! assert_eq!(
+//!     cff
+//!         .authors[0]
+//!         .as_person()
+//!         .and_then(|his| his.family_names.as_deref()),
+//!     Some("Vader")
+//! );
+//! ```
 #![warn(clippy::unwrap_used, missing_docs)]
 #![deny(rust_2018_idioms)]
 #![forbid(unsafe_code)]
