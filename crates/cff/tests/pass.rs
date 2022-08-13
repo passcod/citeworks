@@ -3,7 +3,8 @@ use std::fs::File;
 use citeworks_cff::{
 	from_reader,
 	names::{EntityName, Name, NameMeta, PersonName},
-	Cff, Date, License, Result, references::{Reference, RefType},
+	references::{RefType, Reference},
+	Cff, Date, License, Result,
 };
 
 use pretty_assertions::assert_eq;
@@ -193,12 +194,22 @@ fn conference_paper() {
 				})],
 				title: Some("Ultimate-accuracy syntax parsing with My Research Tool".into()),
 				year: Some(2017),
-				collection_title: Some("Proceedings of the 1st Conference on Wishful Thinking".into()),
+				collection_title: Some(
+					"Proceedings of the 1st Conference on Wishful Thinking".into()
+				),
 				collection_doi: Some("10.5281/zenodo.123456".into()),
 				conference: Some(EntityName {
 					name: Some("1st Conference on Wishful Thinking".into()),
-					date_start: Some(Date { year: 2017, month: 4, day: 1 }),
-					date_end: Some(Date { year: 2017, month: 4, day: 1 }),
+					date_start: Some(Date {
+						year: 2017,
+						month: 4,
+						day: 1
+					}),
+					date_end: Some(Date {
+						year: 2017,
+						month: 4,
+						day: 1
+					}),
 					meta: NameMeta {
 						address: Some("123 Main St".into()),
 						city: Some("Bielefeld".into()),
@@ -214,6 +225,158 @@ fn conference_paper() {
 				..Default::default()
 			}],
 			doi: Some("10.5281/zenodo.1234".into()),
+			..Cff::default()
+		}
+	);
+}
+
+#[test]
+fn container() {
+	assert_eq!(
+		parse_file("container").unwrap(),
+		Cff {
+			message: "If you use the MRT Docker container, please cite the following.".into(),
+			title: "mrt-iain-m-banks".into(),
+			authors: vec![
+				Name::Entity(EntityName {
+					name: Some("Humboldt-Universität zu Berlin".into()),
+					meta: NameMeta {
+						website: Some(Url::parse("https://www.linguistik.hu-berlin.de/").unwrap()),
+						..Default::default()
+					},
+					..Default::default()
+				}),
+				Name::Person(PersonName {
+					family_names: Some("Doe".into()),
+					given_names: Some(r"Jane".into()),
+					..Default::default()
+				}),
+			],
+			version: Some("1.0.4 (Iain M. Banks)".into()),
+			date_released: Some(Date {
+				year: 2017,
+				month: 12,
+				day: 18
+			}),
+			url: Some(
+				Url::parse(
+					"https://github.com/doe/docker-brew-mrt-core/blob/160d54f9e935/iain/Dockerfile"
+				)
+				.unwrap()
+			),
+			repository: Some(
+				Url::parse("https://hub.docker.hu-berlin.de/_/mrt-iain-m-banks/").unwrap()
+			),
+			..Cff::default()
+		}
+	);
+}
+
+#[test]
+fn mardyn() {
+	assert_eq!(
+		parse_file("mardyn").unwrap(),
+		Cff {
+			message: "This file contains CFF citation information, cf. https://citation-file-format.github.io/, for the ls1 mardyn molecular dynamics code developed by the Boltzmann-Zuse Society for Computational Molecular Engineering.".into(),
+			title: "ls1 mardyn".into(),
+			url: Some(Url::parse("http://www.ls1-mardyn.de/").unwrap()),
+			repository_code: Some(Url::parse("https://projects.hlrs.de/projects/ls1/").unwrap()),
+			license_url: Some(Url::parse("http://www.ls1-mardyn.de/license.html").unwrap()),
+			authors: vec![Name::Entity(EntityName {
+				name: Some("Boltzmann-Zuse Society for Computational Molecular Engineering".into()),
+				meta: NameMeta {
+					country: Some("DE".into()),
+					..Default::default()
+				},
+				..Default::default()
+			})],
+			contact: vec![Name::Person(PersonName {
+				given_names: Some("Philipp".into()),
+				family_names: Some("Neumann".into()),
+				..Default::default()
+			})],
+			version: Some("Internal development version, situated between release 1.1.1 and prospective future release 1.2".into()),
+			commit: Some("Revision 6473.".into()),
+			date_released: Some(Date {
+				year: 2018,
+				month: 9,
+				day: 5
+			}),
+			abstract_text: Some("The molecular dynamics code ls1 mardyn (large systems 1: molecular dynamics), developed by the Boltzmann-Zuse Society for Computational Molecular Engineering, is a scalable massively-parallel molecular modelling and simulation code for classical-mechanical intermolecular pair potential models of low-molecular fluids.".into()),
+			references: vec![Reference {
+				work_type: RefType::Article,
+				title: Some("ls1 mardyn: The massively parallel molecular dynamics code for large systems".into()),
+				year: Some(2014),
+				authors: vec![
+					Name::Person(PersonName {
+						given_names: Some("Christoph".into()),
+						family_names: Some("Niethammer".into()),
+						..Default::default()
+					}),
+					Name::Person(PersonName {
+						given_names: Some("Stefan".into()),
+						family_names: Some("Becker".into()),
+						..Default::default()
+					}),
+					Name::Person(PersonName {
+						given_names: Some("Martin".into()),
+						family_names: Some("Bernreuther".into()),
+						..Default::default()
+					}),
+					Name::Person(PersonName {
+						given_names: Some("Martin".into()),
+						family_names: Some("Buchholz".into()),
+						..Default::default()
+					}),
+					Name::Person(PersonName {
+						given_names: Some("Wolfgang".into()),
+						family_names: Some("Eckhardt".into()),
+						..Default::default()
+					}),
+					Name::Person(PersonName {
+						given_names: Some("Alexander".into()),
+						family_names: Some("Heinecke".into()),
+						..Default::default()
+					}),
+					Name::Person(PersonName {
+						given_names: Some("Stephan".into()),
+						family_names: Some("Werth".into()),
+						..Default::default()
+					}),
+					Name::Person(PersonName {
+						given_names: Some("Hans-Joachim".into()),
+						family_names: Some("Bungartz".into()),
+						..Default::default()
+					}),
+					Name::Person(PersonName {
+						given_names: Some("Colin W.".into()),
+						family_names: Some("Glass".into()),
+						..Default::default()
+					}),
+					Name::Person(PersonName {
+						given_names: Some("Hans".into()),
+						family_names: Some("Hasse".into()),
+						..Default::default()
+					}),
+					Name::Person(PersonName {
+						given_names: Some("Jadran".into()),
+						family_names: Some("Vrabec".into()),
+						..Default::default()
+					}),
+					Name::Person(PersonName {
+						given_names: Some("Martin".into()),
+						family_names: Some("Horsch".into()),
+						..Default::default()
+					}),
+				],
+				journal: Some("Journal of Chemical Theory and Computation".into()),
+				volume: Some(10),
+				issue: Some("10".into()),
+				start: Some(4455),
+				end: Some(4464),
+				doi: Some("10.1021/ct500169q".into()),
+				..Default::default()
+			}],
 			..Cff::default()
 		}
 	);

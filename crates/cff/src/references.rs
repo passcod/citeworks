@@ -3,7 +3,11 @@
 use serde::{Deserialize, Serialize};
 use url::Url;
 
-use crate::{identifiers::Identifier, names::{Name, EntityName}, Date, License};
+use crate::{
+	identifiers::Identifier,
+	names::{EntityName, Name},
+	Date, License,
+};
 
 /// A reference for a work.
 #[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
@@ -332,7 +336,7 @@ pub struct Reference {
 
 	/// The volume of the periodical in which a work appeared.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	pub volume: Option<String>,
+	pub volume: Option<u64>,
 
 	/// The title of the volume in which the work appeared.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
