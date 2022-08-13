@@ -1,6 +1,17 @@
 [package]
 name = "citeworks-csl"
 version = "0.1.0"
+
+authors = ["Félix Saparelli <felix@passcod.name>"]
+license = "Apache-2.0"
+description = "Serde types for serialising and deserialising CSL-JSON"
+keywords = ["csl", "csl-json", "citation-style-language", "citeworks"]
+
+documentation = "https://docs.rs/citeworks-csl"
+repository = "https://github.com/passcod/citeworks"
+readme = "../../README.md"
+
+rust-version = "1.63.0"
 edition = "2021"
 
 [dependencies]
