@@ -1,10 +1,29 @@
 //! Citation Style Language serde types and implementations.
 //!
 //! This targets CSL 1.0.2 but may not support the entire specification.
+//!
+//! At the moment, only CSL-JSON items are covered.
+//!
+//! The top level API mimics [serde_json]'s:
+//!
+//! ```
+//! let csl = citeworks_csl::from_str(r#"
+//! [{
+//!   "id": "example-id",
+//!   "type": "report",
+//!   "author": [
+//!     {"given": "Jane", "family": "Roe"},
+//!     {"literal": "John Doe"}
+//!   ]
+//! }]
+//! "#).unwrap();
+//!
+//! assert_eq!(csl[0].author[0].given, Some("Jane".into()));
+//! ```
 
 use std::io::{Read, Write};
 
-use serde_json::Result;
+pub use serde_json::Result;
 
 pub use items::Item;
 
