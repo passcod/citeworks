@@ -4,6 +4,8 @@ use serde::{de::Error, Deserialize, Deserializer, Serialize};
 use serde_yaml::{Mapping, Value};
 use url::Url;
 
+use crate::Date;
+
 /// Information about a person or entity.
 #[derive(Debug, Clone, Eq, PartialEq, Serialize)]
 #[serde(untagged)]
@@ -108,13 +110,13 @@ pub struct EntityName {
 	///
 	/// For example, a conference.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	pub date_start: Option<String>,
+	pub date_start: Option<Date>,
 
 	/// The entity's ending date.
 	///
 	/// For example, a conference.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	pub date_end: Option<String>,
+	pub date_end: Option<Date>,
 
 	/// Common author metadata fields.
 	#[serde(flatten)]

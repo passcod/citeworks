@@ -3,7 +3,7 @@ use std::fs::File;
 use citeworks_cff::{
 	from_reader,
 	names::{EntityName, Name, NameMeta, PersonName},
-	Cff, Date, License, Result,
+	Cff, Date, License, Result, references::{Reference, RefType},
 };
 
 use pretty_assertions::assert_eq;
@@ -152,6 +152,68 @@ fn closed_source() {
 				day: 28
 			}),
 			url: Some(Url::parse("http://www.opaquity.com").unwrap()),
+			..Cff::default()
+		}
+	);
+}
+
+#[test]
+fn conference_paper() {
+	assert_eq!(
+		parse_file("conference-paper").unwrap(),
+		Cff {
+			message: "If you use this software, please cite the software and the paper.".into(),
+			title: "My Research Tool".into(),
+			authors: vec![Name::Person(PersonName {
+				family_names: Some("Druskat".into()),
+				given_names: Some("Stephan".into()),
+				meta: NameMeta {
+					orcid: Some(Url::parse("https://orcid.org/0000-0003-4925-7248").unwrap()),
+					..Default::default()
+				},
+				..Default::default()
+			})],
+			version: Some("1.0.4".into()),
+			date_released: Some(Date {
+				year: 2017,
+				month: 12,
+				day: 18
+			}),
+			references: vec![Reference {
+				work_type: RefType::ConferencePaper,
+				authors: vec![Name::Person(PersonName {
+					family_names: Some("Doe".into()),
+					given_names: Some("Jane".into()),
+					..Default::default()
+				})],
+				editors: vec![Name::Person(PersonName {
+					family_names: Some("Kirk".into()),
+					given_names: Some("James T.".into()),
+					..Default::default()
+				})],
+				title: Some("Ultimate-accuracy syntax parsing with My Research Tool".into()),
+				year: Some(2017),
+				collection_title: Some("Proceedings of the 1st Conference on Wishful Thinking".into()),
+				collection_doi: Some("10.5281/zenodo.123456".into()),
+				conference: Some(EntityName {
+					name: Some("1st Conference on Wishful Thinking".into()),
+					date_start: Some(Date { year: 2017, month: 4, day: 1 }),
+					date_end: Some(Date { year: 2017, month: 4, day: 1 }),
+					meta: NameMeta {
+						address: Some("123 Main St".into()),
+						city: Some("Bielefeld".into()),
+						country: Some("UM".into()),
+						region: Some("Jarvis Island".into()),
+						..Default::default()
+					},
+					..Default::default()
+				}),
+				start: Some(42),
+				end: Some(45),
+				doi: Some("10.5281/zenodo.1234".into()),
+				..Default::default()
+			}],
+			doi: Some("10.5281/zenodo.1234".into()),
 			..Cff::default()
 		}
 	);
