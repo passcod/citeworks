@@ -58,6 +58,7 @@ impl PartialEq for License {
 impl Eq for License {}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
 enum ExprInternal {
 	Single(String),
 	AnyOf(Vec<String>),

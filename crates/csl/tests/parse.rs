@@ -9,6 +9,8 @@ use citeworks_csl::{
 	Item,
 };
 
+use pretty_assertions::assert_eq;
+
 #[test]
 fn author2() {
 	let mut file = File::open("tests/csl-json/author2.json").unwrap();

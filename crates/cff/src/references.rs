@@ -3,7 +3,7 @@
 use serde::{Deserialize, Serialize};
 use url::Url;
 
-use crate::{identifiers::Identifier, names::Name, Date, License};
+use crate::{identifiers::Identifier, names::{Name, EntityName}, Date, License};
 
 /// A reference for a work.
 #[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
@@ -59,10 +59,8 @@ pub struct Reference {
 	pub commit: Option<String>,
 
 	/// The conference where the work was presented.
-	///
-	/// This should specifically be a `Name::Entity`.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	pub conference: Option<Name>,
+	pub conference: Option<EntityName>,
 
 	/// The contact person, group, company, etc. for a work.
 	#[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -77,10 +75,8 @@ pub struct Reference {
 	pub data_type: Option<String>,
 
 	/// The provider of the database where a work was accessed/is stored.
-	///
-	/// This should specifically be a `Name::Entity`.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	pub database_provider: Option<Name>,
+	pub database_provider: Option<EntityName>,
 
 	/// The name of the database where a work was accessed/is stored.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
@@ -147,10 +143,8 @@ pub struct Reference {
 	pub identifiers: Vec<Identifier>,
 
 	/// The institution where a work has been produced or published.
-	///
-	/// This should specifically be a `Name::Entity`.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	pub institution: Option<Name>,
+	pub institution: Option<EntityName>,
 
 	/// The [ISBN] of the work.
 	///
@@ -217,10 +211,8 @@ pub struct Reference {
 	pub loc_start: Option<u64>,
 
 	/// The location of the work.
-	///
-	/// This should specifically be a `Name::Entity`.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	pub location: Option<Name>,
+	pub location: Option<EntityName>,
 
 	/// The medium of the work.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
@@ -274,10 +266,8 @@ pub struct Reference {
 	pub pmcid: Option<String>,
 
 	/// The publisher who has published the work.
-	///
-	/// This should specifically be a `Name::Entity`.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	pub publisher: Option<Name>,
+	pub publisher: Option<EntityName>,
 
 	/// The recipient(s) of a personal communication.
 	#[serde(default, skip_serializing_if = "Vec::is_empty")]

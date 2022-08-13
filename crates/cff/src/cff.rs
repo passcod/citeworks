@@ -69,6 +69,10 @@ pub struct Cff {
 	#[serde(default, skip_serializing_if = "Vec::is_empty")]
 	pub keywords: Vec<String>,
 
+	/// The URL of a landing page/website for the software or dataset.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub url: Option<Url>,
+
 	/// The URL of the work in a repository/archive.
 	///
 	/// This is to be used when the repository is neither a source code
@@ -154,6 +158,7 @@ impl Default for Cff {
 			date_released: Default::default(),
 			abstract_text: Default::default(),
 			keywords: Default::default(),
+			url: Default::default(),
 			repository: Default::default(),
 			repository_artifact: Default::default(),
 			repository_code: Default::default(),

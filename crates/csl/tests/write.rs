@@ -8,6 +8,8 @@ use citeworks_csl::{
 	to_vec, Item,
 };
 
+use pretty_assertions::assert_eq;
+
 fn json_file(name: &str) -> serde_json::Value {
 	let file = File::open(format!("tests/csl-json/{name}.json")).unwrap();
 	serde_json::from_reader(file).unwrap()
