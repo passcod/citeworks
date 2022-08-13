@@ -125,6 +125,7 @@ pub struct EntityName {
 
 /// Fields common to both types of names (persons and entities).
 #[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
 pub struct NameMeta {
 	/// [ORCID] identifier.
 	///
@@ -159,6 +160,10 @@ pub struct NameMeta {
 	/// Region.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub region: Option<String>,
+
+	/// Location.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub location: Option<String>,
 
 	/// Telephone number.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
