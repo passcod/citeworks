@@ -36,6 +36,7 @@ pub struct Item {
 	pub fields: HashMap<String, ItemValue>,
 }
 
+/// Any of the possible value types of an item's fields.
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ItemValue {
@@ -75,6 +76,7 @@ impl Hash for Item {
 /// The type of the bibliographic resource.
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
+#[allow(missing_docs)]
 pub enum ItemType {
 	// CSL
 	Article,

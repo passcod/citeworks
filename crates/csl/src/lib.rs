@@ -20,6 +20,9 @@
 //!
 //! assert_eq!(csl[0].author[0].given, Some("Jane".into()));
 //! ```
+#![warn(clippy::unwrap_used, missing_docs)]
+#![deny(rust_2018_idioms)]
+#![forbid(unsafe_code)]
 
 use std::io::{Read, Write};
 

@@ -5,6 +5,7 @@ use std::hash::Hash;
 use decorum::{cmp::FloatEq, hash::FloatHash};
 use serde::{Deserialize, Serialize};
 
+/// An ordinary value can either be numerical or a string.
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OrdinaryValue {
@@ -19,6 +20,7 @@ pub enum OrdinaryValue {
 }
 
 impl OrdinaryValue {
+	/// If the [OrdinaryValue] is a string, return it.
 	pub fn as_str(&self) -> Option<&str> {
 		if let Self::String(str) = self {
 			Some(str.as_ref())
@@ -27,6 +29,7 @@ impl OrdinaryValue {
 		}
 	}
 
+	/// If the [OrdinaryValue] is an integer, return it.
 	pub fn as_i64(&self) -> Option<i64> {
 		if let Self::Integer(num) = self {
 			Some(*num)
@@ -35,6 +38,7 @@ impl OrdinaryValue {
 		}
 	}
 
+	/// If the [OrdinaryValue] is a float, return it.
 	pub fn as_f64(&self) -> Option<f64> {
 		if let Self::Float(num) = self {
 			Some(*num)

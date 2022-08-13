@@ -34,20 +34,43 @@ use crate::ordinaries::OrdinaryValue;
 #[derive(Debug, Clone, Hash, Eq, PartialEq)]
 pub enum Date {
 	/// Structured single date
-	Single { date: DateParts, meta: DateMeta },
+	Single {
+		/// Date as a [year, month, day] array
+		date: DateParts,
+
+		/// Additional date (meta)data
+		meta: DateMeta,
+	},
 
 	/// Structured date range
 	Range {
+		/// Start date as a [year, month, day] array
 		start: DateParts,
+
+		/// End date as a [year, month, day] array
 		end: DateParts,
+
+		/// Additional date (meta)data
 		meta: DateMeta,
 	},
 
 	/// Raw
-	Raw { date: String, meta: DateMeta },
+	Raw {
+		/// Date as a string in arbitrary format
+		date: String,
+
+		/// Additional date (meta)data
+		meta: DateMeta,
+	},
 
 	/// EDTF
-	Edtf { date: String, meta: DateMeta },
+	Edtf {
+		/// Date in EDTF string format
+		date: String,
+
+		/// Additional date (meta)data
+		meta: DateMeta,
+	},
 }
 
 #[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
@@ -76,6 +99,7 @@ struct DateInternal {
 }
 
 impl Date {
+	/// Get the [DateMeta] of any variant.
 	pub fn meta(&self) -> &DateMeta {
 		match self {
 			Self::Single { meta, .. }
@@ -154,21 +178,29 @@ impl<'de> Deserialize<'de> for Date {
 	}
 }
 
+/// The core "date-parts" of a date complex type.
+///
+/// In CSL-JSON this is an array `[year, month, day]`.
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(from = "(i64, u32, u8)", into = "(i64, u32, u8)")]
+#[serde(from = "(i64, u8, u8)", into = "(i64, u8, u8)")]
 pub struct DateParts {
+	/// Year, in the Gregorian calendar
 	pub year: i64,
-	pub month: u32,
+
+	/// Month, starting from 1
+	pub month: u8,
+
+	/// Day of the month, starting from 1
 	pub day: u8,
 }
 
-impl From<(i64, u32, u8)> for DateParts {
-	fn from((year, month, day): (i64, u32, u8)) -> Self {
+impl From<(i64, u8, u8)> for DateParts {
+	fn from((year, month, day): (i64, u8, u8)) -> Self {
 		Self { year, month, day }
 	}
 }
 
-impl From<DateParts> for (i64, u32, u8) {
+impl From<DateParts> for (i64, u8, u8) {
 	fn from(val: DateParts) -> Self {
 		let DateParts { year, month, day } = val;
 		(year, month, day)
@@ -221,6 +253,12 @@ impl Hash for DateMeta {
 	}
 }
 
+/// Circa field of date metadata
+///
+/// This has multiple uses:
+/// - it can be a year or arbitrary string, interpreted like `ca. 2008`; or
+/// - it can be a boolean (generally only `true`) to indicate that the
+///   containing date is itself approximate.
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum Circa {
@@ -235,6 +273,7 @@ pub enum Circa {
 }
 
 impl Circa {
+	/// If the [Circa] is an arbitrary string, return it.
 	pub fn as_arbitrary(&self) -> Option<&str> {
 		if let Self::Arbitrary(str) = self {
 			Some(str.as_ref())
@@ -243,6 +282,7 @@ impl Circa {
 		}
 	}
 
+	/// If the [Circa] is a numerical year, return it.
 	pub fn as_year(&self) -> Option<i64> {
 		if let Self::Year(num) = self {
 			Some(*num)
@@ -251,6 +291,7 @@ impl Circa {
 		}
 	}
 
+	/// If the [Circa] is a boolean, return it.
 	pub fn as_bool(&self) -> Option<bool> {
 		if let Self::Bool(b) = self {
 			Some(*b)
@@ -260,11 +301,22 @@ impl Circa {
 	}
 }
 
+/// Season value for approximate dates.
+///
+/// This does not contain information as to where the season is, e.g.
+/// Winter in the north hemisphere could be Summer in the south.
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq)]
 pub enum Season {
+	/// Spring season, or `season-01` in CSL.
 	Spring,
+
+	/// Summer season, or `season-02` in CSL.
 	Summer,
+
+	/// Autumn season, or `season-03` in CSL.
 	Autumn,
+
+	/// Winter season, or `season-04` in CSL.
 	Winter,
 }
 
