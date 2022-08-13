@@ -1,14 +1,13 @@
 //! Types and utilities for names e.g. of authors.
 
-use serde::{de::Error, Deserialize, Deserializer, Serialize};
+use serde::{de::Error, Deserialize, Deserializer, Serialize, Serializer};
 use serde_yaml::{Mapping, Value};
 use url::Url;
 
 use crate::Date;
 
 /// Information about a person or entity.
-#[derive(Debug, Clone, Eq, PartialEq, Serialize)]
-#[serde(untagged)]
+#[derive(Debug, Clone, Eq, PartialEq)]
 pub enum Name {
 	/// A human person.
 	Person(PersonName),
@@ -20,6 +19,23 @@ pub enum Name {
 	///
 	/// This is the entry `- name: anonymous`.
 	Anonymous,
+}
+
+impl Serialize for Name {
+	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+	where
+		S: Serializer,
+	{
+		match self {
+			Self::Person(p) => p.serialize(serializer),
+			Self::Entity(e) => e.serialize(serializer),
+			Self::Anonymous => Mapping::from_iter([(
+				Value::String("name".into()),
+				Value::String("anonymous".into()),
+			)])
+			.serialize(serializer),
+		}
+	}
 }
 
 impl<'de> Deserialize<'de> for Name {

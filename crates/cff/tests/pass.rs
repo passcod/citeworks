@@ -135,7 +135,7 @@ fn closed_source() {
 					name_suffix: Some("né Skywalker".into()),
 					given_names: Some(r#"Anakin "Darth""#.into()),
 					..Default::default()
-			})],
+			}), Name::Anonymous],
 			contact: vec![Name::Entity(EntityName {
 				name: Some("Dark Side Software".into()),
 				meta: NameMeta {
@@ -215,6 +215,8 @@ fn conference_paper() {
 						city: Some("Bielefeld".into()),
 						country: Some("UM".into()),
 						region: Some("Jarvis Island".into()),
+						location: Some("Spock's Inn Hotel and Bar".into()),
+						post_code: Some("12345".into()),
 						..Default::default()
 					},
 					..Default::default()
