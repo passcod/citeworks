@@ -12,8 +12,9 @@ use crate::{dates::Date, names::Name, ordinaries::OrdinaryValue};
 /// An item carries the details of a single unique bibliographic resource.
 ///
 /// The set of fields that an item may have is determined by the item type; in
-/// this library this is checked at serialisation time, but unrecognised fields
-/// are not errors when deserialised.
+/// this library this is not checked: known fields have their field type defined
+/// and checked, but unrecognised fields are not errors when deserialised and
+/// go in the generic `fields` map.
 #[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Item {
 	/// Unique ID of this item within the CSL document.
@@ -27,9 +28,53 @@ pub struct Item {
 	#[serde(default, skip_serializing_if = "Vec::is_empty")]
 	pub author: Vec<Name>,
 
+	/// Contributor(s) to the item.
+	#[serde(default, skip_serializing_if = "Vec::is_empty")]
+	pub contributor: Vec<Name>,
+
 	/// Date the item was issued on.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub issued: Option<Date>,
+
+	/// Date the item was last updated.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub updated: Option<Date>,
+
+	/// Date the item was published on.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub published: Option<Date>,
+
+	/// Category of the item (scientific field or type of study)
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub category: Option<OrdinaryValue>,
+
+	/// ISSN of the item.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub issn: Option<OrdinaryValue>,
+
+	/// EISSN of the item.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub eissn: Option<OrdinaryValue>,
+
+	/// ISSNL of the item.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub issnl: Option<OrdinaryValue>,
+
+	/// Summary of the item.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub summary: Option<OrdinaryValue>,
+
+	/// Title of the item.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub title: Option<OrdinaryValue>,
+
+	/// Short title of the item.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub title_short: Option<OrdinaryValue>,
+
+	/// Copyright statement for the item.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub rights: Option<OrdinaryValue>,
 
 	/// Any field that is not directly supported by name.
 	#[serde(flatten)]
