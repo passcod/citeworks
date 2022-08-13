@@ -16,6 +16,7 @@ use crate::{dates::Date, names::Name, ordinaries::OrdinaryValue};
 /// and checked, but unrecognised fields are not errors when deserialised and
 /// go in the generic `fields` map.
 #[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
 pub struct Item {
 	/// Unique ID of this item within the CSL document.
 	pub id: String,
@@ -24,7 +25,7 @@ pub struct Item {
 	#[serde(rename = "type")]
 	pub item_type: ItemType,
 
-	/// Author(s) of the item.
+	/// Author(s).
 	#[serde(default, skip_serializing_if = "Vec::is_empty")]
 	pub author: Vec<Name>,
 
@@ -44,37 +45,108 @@ pub struct Item {
 	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub published: Option<Date>,
 
-	/// Category of the item (scientific field or type of study)
+	/// Date the item was accessed (for citations).
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub accessed: Option<Date>,
+
+	/// Category (scientific field or type of study)
 	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub category: Option<OrdinaryValue>,
 
-	/// ISSN of the item.
-	#[serde(default, skip_serializing_if = "Option::is_none")]
+	/// ISSN.
+	#[serde(default, skip_serializing_if = "Option::is_none", rename = "ISSN")]
 	pub issn: Option<OrdinaryValue>,
 
-	/// EISSN of the item.
-	#[serde(default, skip_serializing_if = "Option::is_none")]
+	/// EISSN.
+	#[serde(default, skip_serializing_if = "Option::is_none", rename = "EISSN")]
 	pub eissn: Option<OrdinaryValue>,
 
-	/// ISSNL of the item.
-	#[serde(default, skip_serializing_if = "Option::is_none")]
+	/// ISSNL.
+	#[serde(default, skip_serializing_if = "Option::is_none", rename = "ISSNL")]
 	pub issnl: Option<OrdinaryValue>,
 
-	/// Summary of the item.
-	#[serde(default, skip_serializing_if = "Option::is_none")]
-	pub summary: Option<OrdinaryValue>,
+	/// DOI.
+	#[serde(default, skip_serializing_if = "Option::is_none", rename = "DOI")]
+	pub doi: Option<OrdinaryValue>,
 
-	/// Title of the item.
+	/// URL.
+	#[serde(default, skip_serializing_if = "Option::is_none", rename = "URL")]
+	pub url: Option<OrdinaryValue>,
+
+	/// Title.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub title: Option<OrdinaryValue>,
 
-	/// Short title of the item.
+	/// Short title.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub title_short: Option<OrdinaryValue>,
 
-	/// Copyright statement for the item.
+	/// Summary.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub summary: Option<OrdinaryValue>,
+
+	/// Abstract.
+	#[serde(default, skip_serializing_if = "Option::is_none", rename = "abstract")]
+	pub abstract_text: Option<OrdinaryValue>,
+
+	/// Name of the issuing publication.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub container_title: Option<OrdinaryValue>,
+
+	/// Abbreviated name of the issuing publication.
+	///
+	/// This has non-standard casing: `journalAbbreviation`.
+	#[serde(
+		default,
+		skip_serializing_if = "Option::is_none",
+		rename = "journalAbbreviation"
+	)]
+	pub journal_abbrevation: Option<OrdinaryValue>,
+
+	/// Volume number of the issuing publication.
+	///
+	/// This can be a numerical value but is often a string of a number.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub volume: Option<OrdinaryValue>,
+
+	/// Issue number of the issuing publication.
+	///
+	/// This can be a numerical value but is often a string of a number.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub issue: Option<OrdinaryValue>,
+
+	/// Page number or page range in the issuing publication.
+	///
+	/// This can be a numerical value but is often a string of a number, or of
+	/// the range in `N-M` format.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub page: Option<OrdinaryValue>,
+
+	/// Language code.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub language: Option<OrdinaryValue>,
+
+	/// Plain source name.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub source: Option<OrdinaryValue>,
+
+	/// Copyright statement.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub rights: Option<OrdinaryValue>,
+
+	/// License statement.
+	///
+	/// Sometimes used as a synonym of `rights` rather than actual licensing.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub license: Option<OrdinaryValue>,
+
+	/// Note for extra details that are important to include in the citation but
+	/// don't have a standard field.
+	///
+	/// May be structured or semi-structured data, but as there is no convention
+	/// processors shouldn't make assumptions unless they can assert meaning.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub note: Option<OrdinaryValue>,
 
 	/// Any field that is not directly supported by name.
 	#[serde(flatten)]

@@ -1,0 +1,97 @@
+[
+	{
+		"id": "http://zotero.org/users/220875/items/7GPBRBSB",
+		"type": "post-weblog",
+		"abstract": "Researchers imagined, designed, and tested an elegant lens device that can efficiently gather light from all angles and concentrate it at a fixed output position.",
+		"container-title": "Stanford News",
+		"language": "en",
+		"note": "section: Science & Technology",
+		"title": "New optical device could help solar arrays focus light, even under clouds",
+		"URL": "https://news.stanford.edu/2022/06/27/new-optical-device-help-solar-arrays-focus-light-even-clouds/",
+		"author": [
+			{
+				"family": "University",
+				"given": "Stanford"
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					12
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2022",
+					6,
+					27
+				]
+			]
+		}
+	},
+	{
+		"id": "http://zotero.org/users/220875/items/5GM33RAG",
+		"type": "article-journal",
+		"abstract": "Complex optical devices including aspherical focusing mirrors, solar concentrator arrays, and immersion lenses were 3D printed using commercial technology and experimentally demonstrated by evaluating surface roughness and shape. The as-printed surfaces had surface roughness on the order of tens of microns. To improve this unacceptable surface quality for creating optics, a polymer smoothing technique was developed. Atomic force microscopy and optical profilometry showed that the smoothing technique reduced the surface roughness to a few nanometers, consistent with the requirements of high-quality optics, while tests of optical functionality demonstrated that the overall shapes were maintained so that near theoretically predicted operation was achieved. The optical surface smoothing technique is a promising approach towards using 3D printing as a flexible tool for prototyping and fabrication of miniaturized high-quality optics.",
+		"container-title": "Microsystems & Nanoengineering",
+		"DOI": "10.1038/s41378-018-0015-4",
+		"ISSN": "2055-7434",
+		"issue": "1",
+		"journalAbbreviation": "Microsyst Nanoeng",
+		"language": "en",
+		"license": "2018 The Author(s)",
+		"note": "number: 1\npublisher: Nature Publishing Group",
+		"page": "1-8",
+		"source": "www.nature.com",
+		"title": "3D printed optics with nanometer scale surface roughness",
+		"URL": "https://www.nature.com/articles/s41378-018-0015-4",
+		"volume": "4",
+		"author": [
+			{
+				"family": "Vaidya",
+				"given": "Nina"
+			},
+			{
+				"family": "Solgaard",
+				"given": "Olav"
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					12
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2018",
+					7,
+					16
+				]
+			]
+		}
+	},
+	{
+		"id": "http://zotero.org/users/220875/items/JS8LDHL6",
+		"type": "document",
+		"title": "ee412_finalreport-gradedindex.pdf",
+		"URL": "https://snfexfab.stanford.edu/sites/g/files/sbiybj8726/f/sections/diplayfiles/ee412_finalreport-gradedindex.pdf",
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					12
+				]
+			]
+		}
+	}
+]

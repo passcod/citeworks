@@ -74,15 +74,17 @@ pub fn to_vec_pretty(value: &[Item]) -> Result<Vec<u8>> {
 }
 
 /// Serialize the given CSL items as JSON into the IO stream.
-pub fn to_writer<W>(writer: W, value: &[Item]) -> Result<()> where
-    W: Write
+pub fn to_writer<W>(writer: W, value: &[Item]) -> Result<()>
+where
+	W: Write,
 {
 	serde_json::to_writer(writer, value)
 }
 
 /// Serialize the given CSL items as pretty-printed JSON into the IO stream.
-pub fn to_writer_pretty<W>(writer: W, value: &[Item]) -> Result<()> where
-    W: Write
+pub fn to_writer_pretty<W>(writer: W, value: &[Item]) -> Result<()>
+where
+	W: Write,
 {
 	serde_json::to_writer_pretty(writer, value)
 }

@@ -1,8 +1,10 @@
 //! Types and utilities for dates complex values.
 
 use std::collections::HashMap;
+use std::fmt::Debug;
 use std::fmt::Display;
 use std::hash::{Hash, Hasher};
+use std::num::ParseIntError;
 use std::str::FromStr;
 
 use serde::de::Error;
@@ -182,7 +184,7 @@ impl<'de> Deserialize<'de> for Date {
 ///
 /// In CSL-JSON this is an array `[year, month, day]`.
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(from = "(i64, u8, u8)", into = "(i64, u8, u8)")]
+#[serde(try_from = "DatePartsInternal", into = "DatePartsInternal")]
 pub struct DateParts {
 	/// Year, in the Gregorian calendar
 	pub year: i64,
@@ -194,16 +196,66 @@ pub struct DateParts {
 	pub day: u8,
 }
 
-impl From<(i64, u8, u8)> for DateParts {
-	fn from((year, month, day): (i64, u8, u8)) -> Self {
-		Self { year, month, day }
+#[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
+struct DatePartsInternal(StrumI64, StrumU8, StrumU8);
+
+#[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+enum StrumI64 {
+	String(String),
+	Num(i64),
+}
+
+#[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+enum StrumU8 {
+	String(String),
+	Num(u8),
+}
+
+impl TryFrom<StrumI64> for i64 {
+	type Error = ParseIntError;
+
+	fn try_from(value: StrumI64) -> Result<Self, Self::Error> {
+		match value {
+			StrumI64::String(s) => s.parse(),
+			StrumI64::Num(t) => Ok(t),
+		}
 	}
 }
 
-impl From<DateParts> for (i64, u8, u8) {
-	fn from(val: DateParts) -> Self {
-		let DateParts { year, month, day } = val;
-		(year, month, day)
+impl TryFrom<StrumU8> for u8 {
+	type Error = ParseIntError;
+
+	fn try_from(value: StrumU8) -> Result<Self, Self::Error> {
+		match value {
+			StrumU8::String(s) => s.parse(),
+			StrumU8::Num(t) => Ok(t),
+		}
+	}
+}
+
+impl TryFrom<DatePartsInternal> for DateParts {
+	type Error = ParseIntError;
+
+	fn try_from(
+		DatePartsInternal(year, month, day): DatePartsInternal,
+	) -> Result<Self, Self::Error> {
+		Ok(Self {
+			year: year.try_into()?,
+			month: month.try_into()?,
+			day: day.try_into()?,
+		})
+	}
+}
+
+impl From<DateParts> for DatePartsInternal {
+	fn from(parts: DateParts) -> Self {
+		Self(
+			StrumI64::Num(parts.year),
+			StrumU8::Num(parts.month),
+			StrumU8::Num(parts.day),
+		)
 	}
 }
 
