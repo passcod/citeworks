@@ -1,0 +1,9 @@
+[
+	{
+		"id": "example-id",
+		"type": "report",
+		"issued": {
+			"raw": "1st January 2000"
+		}
+	}
+]

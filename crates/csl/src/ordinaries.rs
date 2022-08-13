@@ -1,15 +1,21 @@
 //! Types and utilities for ordinary values.
 
+use std::hash::Hash;
+
+use decorum::{cmp::FloatEq, hash::FloatHash};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OrdinaryValue {
+	/// Numeric values (floating)
+	Float(f64),
+
+	/// Numeric values (integers)
+	Integer(i64),
+
 	/// String values
 	String(String),
-
-	/// Numeric values
-	Number(serde_json::Number),
 }
 
 impl OrdinaryValue {
@@ -21,23 +27,43 @@ impl OrdinaryValue {
 		}
 	}
 
-	pub fn as_number(&self) -> Option<&serde_json::Number> {
-		if let Self::Number(num) = self {
-			Some(num)
+	pub fn as_i64(&self) -> Option<i64> {
+		if let Self::Integer(num) = self {
+			Some(*num)
 		} else {
 			None
 		}
 	}
 
-	pub fn as_i64(&self) -> Option<i64> {
-		self.as_number().and_then(|f| f.as_i64())
-	}
-
-	pub fn as_u64(&self) -> Option<u64> {
-		self.as_number().and_then(|f| f.as_u64())
-	}
-
 	pub fn as_f64(&self) -> Option<f64> {
-		self.as_number().and_then(|f| f.as_f64())
+		if let Self::Float(num) = self {
+			Some(*num)
+		} else {
+			None
+		}
+	}
+}
+
+impl PartialEq for OrdinaryValue {
+	fn eq(&self, other: &Self) -> bool {
+		match (self, other) {
+			(Self::Integer(l0), Self::Integer(r0)) => l0 == r0,
+			(Self::Float(l0), Self::Float(r0)) => l0.float_eq(r0),
+			(Self::String(l0), Self::String(r0)) => l0 == r0,
+			_ => false,
+		}
+	}
+}
+
+impl Eq for OrdinaryValue {}
+
+impl Hash for OrdinaryValue {
+	fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+		core::mem::discriminant(self).hash(state);
+		match self {
+			OrdinaryValue::Float(f) => f.float_hash(state),
+			OrdinaryValue::Integer(i) => i.hash(state),
+			OrdinaryValue::String(s) => s.hash(state),
+		}
 	}
 }

@@ -1,0 +1,15 @@
+[
+	{
+		"id": "example-id",
+		"type": "report",
+		"author": [
+			{
+				"given": "Jane",
+				"family": "Roe"
+			},
+			{
+				"literal": "John Doe"
+			}
+		]
+	}
+]

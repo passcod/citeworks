@@ -1,0 +1,17 @@
+[
+	{
+		"id": "example-id",
+		"type": "report",
+		"issued": {
+			"date-parts": [
+				[
+					2000,
+					1,
+					1
+				]
+			],
+			"circa": 2001,
+			"season": "winter"
+		}
+	}
+]

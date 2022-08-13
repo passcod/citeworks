@@ -7,12 +7,14 @@ use std::{
 
 use serde::{Deserialize, Serialize};
 
+use crate::{dates::Date, names::Name, ordinaries::OrdinaryValue};
+
 /// An item carries the details of a single unique bibliographic resource.
 ///
 /// The set of fields that an item may have is determined by the item type; in
 /// this library this is checked at serialisation time, but unrecognised fields
 /// are not errors when deserialised.
-#[derive(Debug, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Item {
 	/// Unique ID of this item within the CSL document.
 	pub id: String,
@@ -21,6 +23,22 @@ pub struct Item {
 	#[serde(rename = "type")]
 	pub item_type: ItemType,
 
+	/// Author(s) of the item.
+	#[serde(default, skip_serializing_if = "Vec::is_empty")]
+	pub author: Vec<Name>,
+
+	/// Date the item was issued on.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub issued: Option<Date>,
+
+	/// Any field that is not directly supported by name.
+	#[serde(flatten)]
+	pub fields: HashMap<String, ItemValue>,
+}
+
+#[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ItemValue {
 	/// Ordinary fields containing string or numeric values.
 	///
 	/// In ordinary fields, the processor recognizes a limited set of [HTML-like
@@ -30,28 +48,21 @@ pub struct Item {
 	/// citation item.
 	///
 	/// [html-tags]: https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html#html-like-formatting-tags
-	#[serde(flatten)]
-	pub fields: HashMap<String, crate::ordinaries::OrdinaryValue>,
-
-	/// Names fields containing lists of names.
-	///
-	/// A names field is a complex field that lists persons as authors,
-	/// contributors, or creators, etc. Each field is an array of objects, with
-	/// each object containing information about one person.
-	#[serde(flatten)]
-	pub names: HashMap<String, Vec<crate::names::Name>>,
+	Ordinary(OrdinaryValue),
 
 	/// Date fields containing dates or ranges of dates.
 	///
 	/// A date field is a complex field that expresses a date or a range of
 	/// dates, for example `issued`, which identifies the date an item was
 	/// issued or published.
-	#[serde(flatten)]
-	pub dates: HashMap<String, crate::dates::Date>,
+	Date(Date),
 
-	/// Complex fields not of the types above.
-	#[serde(flatten)]
-	pub extra: HashMap<String, serde_json::Value>,
+	/// Names fields containing lists of names.
+	///
+	/// A names field is a complex field that lists persons as authors,
+	/// contributors, or creators, etc. Each field is an array of objects, with
+	/// each object containing information about one person.
+	Names(Vec<Name>),
 }
 
 impl Hash for Item {
@@ -63,7 +74,7 @@ impl Hash for Item {
 
 /// The type of the bibliographic resource.
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(untagged, rename_all = "kebab-case")]
+#[serde(rename_all = "kebab-case")]
 pub enum ItemType {
 	// CSL
 	Article,
@@ -115,4 +126,10 @@ pub enum ItemType {
 	Gazette,
 	Video,
 	LegalCommentary,
+}
+
+impl Default for ItemType {
+	fn default() -> Self {
+		Self::Article
+	}
 }

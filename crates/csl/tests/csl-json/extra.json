@@ -1,0 +1,15 @@
+[
+	{
+		"id": "example-id",
+		"type": "report",
+		"not-a-csl-key": "extra",
+		"not-a-csl-date": {
+			"raw": "1/2/3456"
+		},
+		"not-a-csl-name": [
+			{
+				"literal": "surplus"
+			}
+		]
+	}
+]

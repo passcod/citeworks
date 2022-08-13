@@ -1,0 +1,15 @@
+[
+	{
+		"id": "example-id",
+		"type": "report",
+		"issued": {
+			"date-parts": [
+				[
+					2000,
+					1,
+					1
+				]
+			]
+		}
+	}
+]

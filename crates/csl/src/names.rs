@@ -14,15 +14,15 @@ use serde::{Deserialize, Serialize};
 /// Should have at least the `family` field (for personyms) or the `literal`
 /// field (for institutions). People using mononyms can have _just_ the `family`
 /// field as their sole name.
-#[derive(Debug, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub struct Name {
 	/// Represents the familial name that a person inherits.
-	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub family: Option<String>,
 
 	/// Represents the name a person has been given or has chosen for themselves.
-	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub given: Option<String>,
 
 	/// Elements before the given name.
@@ -32,7 +32,7 @@ pub struct Name {
 	///
 	/// It's also acceptable to include these particles directly as part of the
 	/// `given` field.
-	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub dropping_particle: Option<String>,
 
 	/// Elements before the family name.
@@ -42,7 +42,7 @@ pub struct Name {
 	///
 	/// It's also acceptable to include these particles directly as part of the
 	/// `family` field.
-	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub non_dropping_particle: Option<String>,
 
 	/// Elements after the family name.
@@ -53,11 +53,11 @@ pub struct Name {
 	///
 	/// It's also acceptable to include these suffixes directly as part of the
 	/// `family` field.
-	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub suffix: Option<String>,
 
 	/// Name of an institution, or whole name of a person.
-	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub literal: Option<String>,
 
 	/// Name fields not defined above.

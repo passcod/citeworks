@@ -1,0 +1,9 @@
+[
+	{
+		"id": "example-id",
+		"type": "report",
+		"issued": {
+			"edtf": "2000-01-01/2010-10-10"
+		}
+	}
+]
