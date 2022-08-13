@@ -1,6 +1,6 @@
 [package]
 name = "citeworks-csl"
-version = "0.1.0"
+version = "0.2.0"
 
 authors = ["Félix Saparelli <felix@passcod.name>"]
 license = "Apache-2.0"
@@ -9,7 +9,6 @@ keywords = ["csl", "csl-json", "citation-style", "citeworks"]
 
 documentation = "https://docs.rs/citeworks-csl"
 repository = "https://github.com/passcod/citeworks"
-readme = "README.md"
 
 rust-version = "1.63.0"
 edition = "2021"
