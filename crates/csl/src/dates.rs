@@ -1,14 +1,14 @@
 //! Types and utilities for dates complex values.
 
-use std::collections::HashMap;
-use std::fmt::Debug;
-use std::fmt::Display;
-use std::hash::{Hash, Hasher};
-use std::num::ParseIntError;
-use std::str::FromStr;
+use std::{
+	collections::HashMap,
+	fmt::{Debug, Display},
+	hash::{Hash, Hasher},
+	num::ParseIntError,
+	str::FromStr,
+};
 
-use serde::de::Error;
-use serde::{Deserialize, Deserializer, Serialize, Serializer};
+use serde::{de::Error, Deserialize, Deserializer, Serialize, Serializer};
 
 use crate::ordinaries::OrdinaryValue;
 

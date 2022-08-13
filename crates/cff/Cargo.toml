@@ -1,8 +1,22 @@
 [package]
 name = "citeworks-cff"
 version = "0.1.0"
+
+authors = ["Félix Saparelli <felix@passcod.name>"]
+license = "Apache-2.0"
+description = "Serde types for serialising and deserialising CFF (Citation File Format)"
+keywords = ["cff", "citeworks"]
+
+documentation = "https://docs.rs/citeworks-cff"
+repository = "https://github.com/passcod/citeworks"
+readme = "../../README.md"
+
+rust-version = "1.63.0"
 edition = "2021"
 
 [dependencies]
+semver = { version = "1.0.13", features = ["serde"] }
 serde = { version = "1.0.143", features = ["derive"] }
 serde_yaml = "0.9.4"
+spdx = "0.8.1"
+url = { version = "2.2.2", features = ["serde"] }

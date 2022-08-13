@@ -38,7 +38,7 @@ pub struct Name {
 	/// Elements before the family name.
 	///
 	/// For example, in "Bartolomé de las Casas", "de las" are the non-dropping
-	/// particles. In "Rev. Martin Luther Jr.", it's "Rev.".
+	/// particles.
 	///
 	/// It's also acceptable to include these particles directly as part of the
 	/// `family` field.
