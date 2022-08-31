@@ -1,9 +1,6 @@
 //! Types and utilities for bibliography items.
 
-use std::{
-	collections::HashMap,
-	hash::{Hash, Hasher},
-};
+use std::collections::BTreeMap;
 
 use serde::{Deserialize, Serialize};
 
@@ -15,7 +12,7 @@ use crate::{dates::Date, names::Name, ordinaries::OrdinaryValue};
 /// this library this is not checked: known fields have their field type defined
 /// and checked, but unrecognised fields are not errors when deserialised and
 /// go in the generic `fields` map.
-#[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub struct Item {
 	/// Unique ID of this item within the CSL document.
@@ -150,7 +147,7 @@ pub struct Item {
 
 	/// Any field that is not directly supported by name.
 	#[serde(flatten)]
-	pub fields: HashMap<String, ItemValue>,
+	pub fields: BTreeMap<String, ItemValue>,
 }
 
 /// Any of the possible value types of an item's fields.
@@ -181,13 +178,6 @@ pub enum ItemValue {
 	/// contributors, or creators, etc. Each field is an array of objects, with
 	/// each object containing information about one person.
 	Names(Vec<Name>),
-}
-
-impl Hash for Item {
-	/// Hashes this value, considering only the ID field.
-	fn hash<H: Hasher>(&self, state: &mut H) {
-		self.id.hash(state);
-	}
 }
 
 /// The type of the bibliographic resource.

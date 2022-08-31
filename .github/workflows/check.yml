@@ -13,6 +13,6 @@ jobs:
       - name: Configure toolchain
         run: |
           rustup toolchain install --profile minimal --no-self-update stable
-          rustup default stable
+          rustup default 1.59.0
           rustup component add clippy
       - run: cargo clippy

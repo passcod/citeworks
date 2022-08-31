@@ -1,9 +1,8 @@
 //! Types and utilities for dates complex values.
 
 use std::{
-	collections::HashMap,
+	collections::BTreeMap,
 	fmt::{Debug, Display},
-	hash::{Hash, Hasher},
 	num::ParseIntError,
 	str::FromStr,
 };
@@ -75,7 +74,7 @@ pub enum Date {
 	},
 }
 
-#[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 struct DateInternal {
 	#[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -97,7 +96,7 @@ struct DateInternal {
 	edtf: Option<String>,
 
 	#[serde(flatten)]
-	extra: HashMap<String, OrdinaryValue>,
+	extra: BTreeMap<String, OrdinaryValue>,
 }
 
 impl Date {
@@ -128,10 +127,10 @@ impl Serialize for Date {
 
 		match self {
 			Self::Single { date, .. } => {
-				internal.date_parts = vec![date.clone()];
+				internal.date_parts = vec![*date];
 			}
 			Self::Range { start, end, .. } => {
-				internal.date_parts = vec![start.clone(), end.clone()];
+				internal.date_parts = vec![*start, *end];
 			}
 			Self::Raw { date, .. } => {
 				internal.raw = Some(date.clone());
@@ -155,13 +154,13 @@ impl<'de> Deserialize<'de> for Date {
 
 		if internal.date_parts.len() == 1 {
 			Ok(Self::Single {
-				date: internal.date_parts[0].clone(),
+				date: internal.date_parts[0],
 				meta: DateMeta::from_internal(internal),
 			})
 		} else if internal.date_parts.len() == 2 {
 			Ok(Self::Range {
-				start: internal.date_parts[0].clone(),
-				end: internal.date_parts[1].clone(),
+				start: internal.date_parts[0],
+				end: internal.date_parts[1],
 				meta: DateMeta::from_internal(internal),
 			})
 		} else if let Some(date) = &internal.edtf {
@@ -259,7 +258,7 @@ impl From<DateParts> for DatePartsInternal {
 	}
 }
 
-#[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 /// Date metadata or less-precise fields.
 pub struct DateMeta {
 	/// A season.
@@ -280,7 +279,7 @@ pub struct DateMeta {
 
 	/// Date fields not defined above.
 	#[serde(flatten)]
-	pub extra: HashMap<String, OrdinaryValue>,
+	pub extra: BTreeMap<String, OrdinaryValue>,
 }
 
 impl DateMeta {
@@ -290,17 +289,6 @@ impl DateMeta {
 			circa: internal.circa,
 			literal: internal.literal,
 			extra: internal.extra,
-		}
-	}
-}
-
-impl Hash for DateMeta {
-	fn hash<H: Hasher>(&self, state: &mut H) {
-		self.season.hash(state);
-		self.circa.hash(state);
-		self.literal.hash(state);
-		for (k, v) in &self.extra {
-			(k, v).hash(state);
 		}
 	}
 }
