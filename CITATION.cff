@@ -16,3 +16,120 @@ authors:
   orcid: https://orcid.org/0000-0002-2010-630X
 
 references:
+- type: website
+  authors:
+  - name: anonymous
+  date-accessed: 2022-08-31
+  title: CSL-JSON — citeproc-js 1.1.73 documentation
+  url: https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html
+- type: website
+  authors:
+  - name: anonymous
+  abstract: Citation Style Language schema. Contribute to citation-style-language/schema
+    development by creating an account on GitHub.
+  collection-title: GitHub
+  date-accessed: 2022-08-31
+  languages:
+  - en
+  title: schema/csl-data.json at master · citation-style-language/schema
+  url: https://github.com/citation-style-language/schema
+- type: software
+  authors:
+  - name: anonymous
+  abstract: Citation Style Language schema
+  copyright: MIT
+  database: GitHub
+  date-accessed: 2022-08-31
+  issue-date: 2022-08-19
+  notes: 'original-date: 2011-02-17T16:46:58Z'
+  title: Schemas describing the Citation Style Language
+  url: https://github.com/citation-style-language/schema
+- type: website
+  authors:
+  - name: anonymous
+  date-accessed: 2022-08-31
+  title: Primer — An Introduction to CSL — Citation Style Language 1.0.1-dev documentation
+  url: https://docs.citationstyles.org/en/stable/primer.html
+- type: software
+  authors:
+  - name: anonymous
+  abstract: MEDLINE/Pubmed .nbib format to CSL-JSON conversion
+  database: GitHub
+  date-accessed: 2022-08-31
+  issue-date: 2022-01-03
+  notes: 'original-date: 2022-01-02T22:26:22Z'
+  title: nbib
+  url: https://github.com/blachlylab/nbib-rs
+- type: software
+  authors:
+  - name: anonymous
+  abstract: CSL processor in Rust.
+  database: GitHub
+  date-accessed: 2022-08-31
+  issue-date: 2022-08-13
+  notes: 'original-date: 2018-11-28T04:11:41Z'
+  title: citeproc-rs
+  url: https://github.com/zotero/citeproc-rs
+- type: website
+  authors:
+  - name: anonymous
+  abstract: The Citation File Format lets you provide citation metadata for software
+    or datasets in plaintext files that are easy to read by both humans and machines.
+    - citation-file-format/CITATION.cff at mai...
+  collection-title: GitHub
+  date-accessed: 2022-08-31
+  languages:
+  - en
+  title: citation-file-format/CITATION.cff at main · citation-file-format/citation-file-format
+  url: https://github.com/citation-file-format/citation-file-format
+- type: software
+  authors:
+  - family-names: Spaaks
+    given-names: Jurriaan H.
+  abbreviation: cffconvert
+  copyright: Apache Software License
+  database: PyPI
+  date-accessed: 2022-08-31
+  title: 'cffconvert: Command line program to validate and convert CITATION.cff files.'
+  url: https://github.com/citation-file-format/cff-converter-python
+- type: software
+  authors:
+  - family-names: Hernangómez
+    given-names: Diego
+  abstract: Validate your CITATION.cff file with GitHub Actions
+  copyright: MIT
+  database: GitHub
+  date-accessed: 2022-08-31
+  issue-date: 2021-09-01
+  notes: 'DOI: 10.5281/zenodo.5348444'
+  title: cff-validator
+  url: https://github.com/dieghernan/cff-validator
+- type: software
+  authors:
+  - family-names: Druskat
+    given-names: Stephan
+  - family-names: Spaaks
+    given-names: Jurriaan H.
+  - family-names: Chue Hong
+    given-names: Neil
+  - family-names: Haines
+    given-names: Robert
+  - family-names: Baker
+    given-names: James
+  - family-names: Bliven
+    given-names: Spencer
+  - family-names: Willighagen
+    given-names: Egon
+  - family-names: Pérez-Suárez
+    given-names: David
+  - family-names: Konovalov
+    given-names: Alexander
+  abstract: The Citation File Format lets you provide citation metadata for software
+    or datasets in plaintext files that are easy to read by both humans and machines.
+  copyright: CC-BY-4.0
+  database: GitHub
+  date-accessed: 2022-08-31
+  issue-date: 2021-08-01
+  notes: 'DOI: 10.5281/zenodo.5171937'
+  title: Citation File Format
+  url: https://github.com/citation-file-format/citation-file-format
