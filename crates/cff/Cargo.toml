@@ -9,7 +9,6 @@ keywords = ["cff", "citeworks"]
 
 documentation = "https://docs.rs/citeworks-cff"
 repository = "https://github.com/passcod/citeworks"
-readme = "README.md"
 
 rust-version = "1.59.0"
 edition = "2021"
