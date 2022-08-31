@@ -12,8 +12,12 @@ use citeworks_cff::{
 	to_writer, Cff, Date as CffDate,
 };
 use citeworks_csl::{
-	dates::Date as CslDate, from_reader as csl_from_reader, items::ItemType,
-	names::Name as CslName, ordinaries::OrdinaryValue, Item,
+	dates::{Date as CslDate, DateParts as CslDateParts},
+	from_reader as csl_from_reader,
+	items::ItemType,
+	names::Name as CslName,
+	ordinaries::OrdinaryValue,
+	Item,
 };
 use clap::Parser;
 use miette::{IntoDiagnostic, Result};
@@ -216,18 +220,34 @@ fn ov_string(ov: Option<OrdinaryValue>) -> Option<String> {
 	ov.map(|v| v.to_string())
 }
 
+fn warn_partial_dates(date: CslDateParts) {
+	if date.month.is_none() {
+		eprintln!("WARNING: date {date:?} has no month, will default to january");
+	}
+
+	if date.day.is_none() {
+		eprintln!("WARNING: date {date:?} has no day, will default to the 1st");
+	}
+}
+
 fn convert_date(date: Option<CslDate>) -> Option<CffDate> {
 	match date {
-		Some(CslDate::Single { date, .. }) => Some(CffDate {
-			year: date.year,
-			month: date.month,
-			day: date.day,
-		}),
-		Some(CslDate::Range { start, .. }) => Some(CffDate {
-			year: start.year,
-			month: start.month,
-			day: start.day,
-		}),
+		Some(CslDate::Single { date, .. }) => {
+			warn_partial_dates(date);
+			Some(CffDate {
+				year: date.year,
+				month: date.month.unwrap_or(1),
+				day: date.day.unwrap_or(1),
+			})
+		}
+		Some(CslDate::Range { start, .. }) => {
+			warn_partial_dates(start);
+			Some(CffDate {
+				year: start.year,
+				month: start.month.unwrap_or(1),
+				day: start.day.unwrap_or(1),
+			})
+		}
 		Some(other) => {
 			eprintln!("WARNING: could not convert date {other:?}, do it manually");
 			None
