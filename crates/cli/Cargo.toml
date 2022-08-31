@@ -9,7 +9,7 @@ keywords = ["cff", "csl", "convert", "citeworks"]
 
 repository = "https://github.com/passcod/citeworks"
 
-rust-version = "1.63.0"
+rust-version = "1.59.0"
 edition = "2021"
 
 [dependencies]
