@@ -89,7 +89,9 @@ impl<'de> Deserialize<'de> for Name {
 					Ok(Name::Entity(entity))
 				}
 			} else {
-				Err(D::Error::custom(format!("'name' value must be a string")))
+				Err(D::Error::custom(
+					"'name' value must be a string".to_string(),
+				))
 			}
 		} else {
 			let person: PersonName = serde_yaml::from_value(Value::Mapping(yaml))

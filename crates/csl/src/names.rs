@@ -1,9 +1,6 @@
 //! Types and utilities for names complex values.
 
-use std::{
-	collections::HashMap,
-	hash::{Hash, Hasher},
-};
+use std::collections::BTreeMap;
 
 use serde::{Deserialize, Serialize};
 
@@ -14,7 +11,7 @@ use serde::{Deserialize, Serialize};
 /// Should have at least the `family` field (for personyms) or the `literal`
 /// field (for institutions). People using mononyms can have _just_ the `family`
 /// field as their sole name.
-#[derive(Debug, Default, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub struct Name {
 	/// Represents the familial name that a person inherits.
@@ -62,17 +59,5 @@ pub struct Name {
 
 	/// Name fields not defined above.
 	#[serde(flatten)]
-	pub extra: HashMap<String, String>,
-}
-
-impl Hash for Name {
-	/// Hashes this value, considering only defined fields (not `extra`).
-	fn hash<H: Hasher>(&self, state: &mut H) {
-		self.family.hash(state);
-		self.given.hash(state);
-		self.dropping_particle.hash(state);
-		self.non_dropping_particle.hash(state);
-		self.suffix.hash(state);
-		self.literal.hash(state);
-	}
+	pub extra: BTreeMap<String, String>,
 }

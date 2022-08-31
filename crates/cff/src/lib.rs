@@ -65,12 +65,12 @@ where
 }
 
 /// Deserialize CFF from bytes of YAML text.
-pub fn from_slice<'a>(v: &'a [u8]) -> Result<Cff> {
+pub fn from_slice(v: &[u8]) -> Result<Cff> {
 	serde_yaml::from_slice(v)
 }
 
 /// Deserialize CFF from a string of YAML text.
-pub fn from_str<'a>(s: &'a str) -> Result<Cff> {
+pub fn from_str(s: &str) -> Result<Cff> {
 	serde_yaml::from_str(s)
 }
 

@@ -44,12 +44,12 @@ where
 }
 
 /// Deserialize CSL items from bytes of JSON text.
-pub fn from_slice<'a>(v: &'a [u8]) -> Result<Vec<Item>> {
+pub fn from_slice(v: &[u8]) -> Result<Vec<Item>> {
 	serde_json::from_slice(v)
 }
 
 /// Deserialize CSL items from a string of JSON text.
-pub fn from_str<'a>(s: &'a str) -> Result<Vec<Item>> {
+pub fn from_str(s: &str) -> Result<Vec<Item>> {
 	serde_json::from_str(s)
 }
 

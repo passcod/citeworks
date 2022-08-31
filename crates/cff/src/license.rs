@@ -20,7 +20,7 @@ use spdx::Expression;
 #[serde(untagged, try_from = "ExprInternal", into = "ExprInternal")]
 pub enum License {
 	/// A single SPDX license expression.
-	Single(Expression),
+	Single(Box<Expression>),
 
 	/// A set of SPDX license expressions (interpreted as joined by `OR`).
 	AnyOf(Vec<Expression>),
@@ -30,7 +30,7 @@ impl License {
 	/// Get a single SPDX expression for this License value.
 	pub fn to_expression(&self) -> Expression {
 		match self {
-			Self::Single(exp) => exp.clone(),
+			Self::Single(exp) => *exp.clone(),
 			Self::AnyOf(exps) => Expression::parse(
 				&exps
 					.iter()
@@ -71,7 +71,7 @@ impl TryFrom<ExprInternal> for License {
 		match value {
 			ExprInternal::Single(expr) => {
 				let expr = Expression::parse(&expr)?;
-				Ok(Self::Single(expr))
+				Ok(Self::Single(Box::new(expr)))
 			}
 			ExprInternal::AnyOf(exprs) => {
 				let mut exps = Vec::with_capacity(exprs.len());

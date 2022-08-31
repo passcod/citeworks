@@ -107,8 +107,8 @@ fn convert_ref(item: Item) -> Result<Reference> {
 		issue: ov_string(item.issue),
 		issue_date: convert_date(item.issued).map(|d| d.to_string()),
 		journal: ov_string(item.journal_abbrevation),
-		keywords: ov_string(item.category).map_or_else(|| Vec::new(), |c| vec![c]),
-		languages: ov_string(item.language).map_or_else(|| Vec::new(), |c| vec![c]),
+		keywords: ov_string(item.category).map_or_else(Vec::new, |c| vec![c]),
+		languages: ov_string(item.language).map_or_else(Vec::new, |c| vec![c]),
 		notes: ov_string(item.note),
 		title: ov_string(item.title),
 		url: ov_string(item.url).and_then(|u| match Url::parse(&u) {
@@ -240,7 +240,7 @@ fn page_start(page: Option<String>) -> Option<u64> {
 	if let Some(page) = page {
 		if let Ok(single) = page.parse::<u64>() {
 			Some(single)
-		} else if let Some(start) = page.splitn(2, '-').next() {
+		} else if let Some(start) = page.split('-').next() {
 			u64::from_str(start).ok()
 		} else {
 			None
@@ -254,7 +254,7 @@ fn page_end(page: Option<String>) -> Option<u64> {
 	if let Some(page) = page {
 		if let Ok(single) = page.parse::<u64>() {
 			Some(single)
-		} else if let Some(end) = page.splitn(2, '-').skip(1).next() {
+		} else if let Some(end) = page.split_once('-').map(|x| x.1) {
 			u64::from_str(end).ok()
 		} else {
 			None
