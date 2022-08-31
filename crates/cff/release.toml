@@ -1,3 +1,3 @@
 pre-release-commit-message = "release: cff v{{version}}"
-tag-prefix = "cff-"
+tag-prefix = "cff"
 tag-message = "citeworks-cff {{version}}"

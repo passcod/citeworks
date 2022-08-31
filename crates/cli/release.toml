@@ -1,5 +1,5 @@
 pre-release-commit-message = "release: cli v{{version}}"
-tag-prefix = "cli-"
+tag-prefix = "cli"
 tag-message = "citeworks-cli {{version}}"
 
 [[pre-release-replacements]]
