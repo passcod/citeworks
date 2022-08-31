@@ -1,0 +1,283 @@
+[
+	{
+		"id": "http://zotero.org/users/220875/items/YXIL4T34",
+		"type": "webpage",
+		"title": "CSL-JSON — citeproc-js 1.1.73 documentation",
+		"URL": "https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html",
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					31
+				]
+			]
+		}
+	},
+	{
+		"id": "http://zotero.org/users/220875/items/4SUGM8GT",
+		"type": "webpage",
+		"abstract": "Citation Style Language schema. Contribute to citation-style-language/schema development by creating an account on GitHub.",
+		"container-title": "GitHub",
+		"language": "en",
+		"title": "schema/csl-data.json at master · citation-style-language/schema",
+		"URL": "https://github.com/citation-style-language/schema",
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					31
+				]
+			]
+		}
+	},
+	{
+		"id": "http://zotero.org/users/220875/items/VS77S6IV",
+		"type": "software",
+		"abstract": "Citation Style Language schema",
+		"genre": "Python",
+		"license": "MIT",
+		"note": "original-date: 2011-02-17T16:46:58Z",
+		"publisher": "Citation Style Language",
+		"source": "GitHub",
+		"title": "Schemas describing the Citation Style Language",
+		"URL": "https://github.com/citation-style-language/schema",
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					31
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					19
+				]
+			]
+		}
+	},
+	{
+		"id": "http://zotero.org/users/220875/items/9Q4GM3C5",
+		"type": "webpage",
+		"title": "Primer — An Introduction to CSL — Citation Style Language 1.0.1-dev documentation",
+		"URL": "https://docs.citationstyles.org/en/stable/primer.html",
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					31
+				]
+			]
+		}
+	},
+	{
+		"id": "http://zotero.org/users/220875/items/TJJZ8NBJ",
+		"type": "software",
+		"abstract": "MEDLINE/Pubmed .nbib format to CSL-JSON conversion",
+		"genre": "Rust",
+		"note": "original-date: 2022-01-02T22:26:22Z",
+		"publisher": "blachlylab",
+		"source": "GitHub",
+		"title": "nbib",
+		"URL": "https://github.com/blachlylab/nbib-rs",
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					31
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2022",
+					1,
+					3
+				]
+			]
+		}
+	},
+	{
+		"id": "http://zotero.org/users/220875/items/G73BYEGD",
+		"type": "software",
+		"abstract": "CSL processor in Rust.",
+		"genre": "Rust",
+		"note": "original-date: 2018-11-28T04:11:41Z",
+		"publisher": "Zotero",
+		"source": "GitHub",
+		"title": "citeproc-rs",
+		"URL": "https://github.com/zotero/citeproc-rs",
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					31
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					13
+				]
+			]
+		}
+	},
+	{
+		"id": "http://zotero.org/users/220875/items/T9PQICTD",
+		"type": "webpage",
+		"abstract": "The Citation File Format lets you provide citation metadata for software or datasets in plaintext files that are easy to read by both humans and machines. - citation-file-format/CITATION.cff at mai...",
+		"container-title": "GitHub",
+		"language": "en",
+		"title": "citation-file-format/CITATION.cff at main · citation-file-format/citation-file-format",
+		"URL": "https://github.com/citation-file-format/citation-file-format",
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					31
+				]
+			]
+		}
+	},
+	{
+		"id": "http://zotero.org/users/220875/items/ECXI7RYW",
+		"type": "software",
+		"genre": "Python",
+		"license": "Apache Software License",
+		"source": "PyPI",
+		"title": "cffconvert: Command line program to validate and convert CITATION.cff files.",
+		"title-short": "cffconvert",
+		"URL": "https://github.com/citation-file-format/cff-converter-python",
+		"version": "2.0.0",
+		"author": [
+			{
+				"family": "Spaaks",
+				"given": "Jurriaan H."
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					31
+				]
+			]
+		}
+	},
+	{
+		"id": "http://zotero.org/users/220875/items/P24GGZQL",
+		"type": "software",
+		"abstract": "Validate your CITATION.cff file with GitHub Actions",
+		"license": "MIT",
+		"note": "DOI: 10.5281/zenodo.5348444",
+		"source": "GitHub",
+		"title": "cff-validator",
+		"URL": "https://github.com/dieghernan/cff-validator",
+		"version": "v1",
+		"author": [
+			{
+				"family": "Hernangómez",
+				"given": "Diego"
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					31
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2021",
+					9
+				]
+			]
+		}
+	},
+	{
+		"id": "http://zotero.org/users/220875/items/AN6MNYSR",
+		"type": "software",
+		"abstract": "The Citation File Format lets you provide citation metadata for software or datasets in plaintext files that are easy to read by both humans and machines.",
+		"genre": "Python",
+		"license": "CC-BY-4.0",
+		"note": "DOI: 10.5281/zenodo.5171937",
+		"source": "GitHub",
+		"title": "Citation File Format",
+		"URL": "https://github.com/citation-file-format/citation-file-format",
+		"version": "1.2.0",
+		"author": [
+			{
+				"family": "Druskat",
+				"given": "Stephan"
+			},
+			{
+				"family": "Spaaks",
+				"given": "Jurriaan H."
+			},
+			{
+				"family": "Chue Hong",
+				"given": "Neil"
+			},
+			{
+				"family": "Haines",
+				"given": "Robert"
+			},
+			{
+				"family": "Baker",
+				"given": "James"
+			},
+			{
+				"family": "Bliven",
+				"given": "Spencer"
+			},
+			{
+				"family": "Willighagen",
+				"given": "Egon"
+			},
+			{
+				"family": "Pérez-Suárez",
+				"given": "David"
+			},
+			{
+				"family": "Konovalov",
+				"given": "Alexander"
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2022",
+					8,
+					31
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2021",
+					8
+				]
+			]
+		}
+	}
+]

@@ -48,8 +48,8 @@ fn single_date() {
 			issued: Some(Date::Single {
 				date: DateParts {
 					year: 2000,
-					month: 1,
-					day: 1
+					month: Some(1),
+					day: Some(1)
 				},
 				meta: Default::default(),
 			}),
@@ -70,13 +70,13 @@ fn date_range() {
 			issued: Some(Date::Range {
 				start: DateParts {
 					year: 2000,
-					month: 1,
-					day: 1
+					month: Some(1),
+					day: Some(1)
 				},
 				end: DateParts {
 					year: 2010,
-					month: 10,
-					day: 10
+					month: Some(10),
+					day: Some(10)
 				},
 				meta: Default::default(),
 			}),
@@ -133,8 +133,8 @@ fn complex_date() {
 			issued: Some(Date::Single {
 				date: DateParts {
 					year: 2000,
-					month: 1,
-					day: 1
+					month: Some(1),
+					day: Some(1)
 				},
 				meta: DateMeta {
 					season: Some(Season::Winter),

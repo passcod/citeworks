@@ -189,14 +189,18 @@ pub struct DateParts {
 	pub year: i64,
 
 	/// Month, starting from 1
-	pub month: u8,
+	pub month: Option<u8>,
 
 	/// Day of the month, starting from 1
-	pub day: u8,
+	pub day: Option<u8>,
 }
 
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
-struct DatePartsInternal(StrumI64, StrumU8, StrumU8);
+struct DatePartsInternal(
+	StrumI64,
+	#[serde(default, skip_serializing_if = "Option::is_none")] Option<StrumU8>,
+	#[serde(default, skip_serializing_if = "Option::is_none")] Option<StrumU8>,
+);
 
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -242,8 +246,8 @@ impl TryFrom<DatePartsInternal> for DateParts {
 	) -> Result<Self, Self::Error> {
 		Ok(Self {
 			year: year.try_into()?,
-			month: month.try_into()?,
-			day: day.try_into()?,
+			month: month.map(|m| m.try_into()).transpose()?,
+			day: day.map(|d| d.try_into()).transpose()?,
 		})
 	}
 }
@@ -252,8 +256,8 @@ impl From<DateParts> for DatePartsInternal {
 	fn from(parts: DateParts) -> Self {
 		Self(
 			StrumI64::Num(parts.year),
-			StrumU8::Num(parts.month),
-			StrumU8::Num(parts.day),
+			parts.month.map(StrumU8::Num),
+			parts.day.map(StrumU8::Num),
 		)
 	}
 }
